@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Pay mWeb Integration </title>
+    <script type="text/javascript" src="https://checkout.razorpay.com/v1/razorpay.js"></script>    
+</head>
+<style>
+
+button {
+    background-color: powderblue;
+    padding: 15px 32px;
+    font-size: 16px;
+}
+
+</style>
+<body onload="addRazorPay()">
+   <button id ="trigger-payment" onclick="invokeRazorPay()">Pay With Razorpay</button>
+
+</body>
+<script>
+
+function addRazorPay () {
+    const s = document.createElement('script');
+    s.setAttribute('src', 'https://checkout.razorpay.com/v1/razorpay.js');
+    s.onload = () => {
+      window.Razorpay.configure({
+        key: 'rzp_test_upYNslfmrDV2tg',
+      });
+    };
+    document.body.appendChild(s);
+  };
+
+function invokeRazorPay () {
+    const razorpay = new window.Razorpay({});
+    razorpay.checkPaymentAdapter('gpay').then(() => {
+           alert('GPay Available');
+           razorpay.createPayment(paymentData, {gpay: true})
+     }).catch(() => {
+          alert('GPay Unavailable');
+        //   paymentData.vpa = 'h22tswift@okhdfcbank';
+        //   razorpay.createPayment(paymentData);
+})
+
+}
+//  document.querySelector('#trigger-payment').addEventListener('click', (e) => {
+
+//     razorpay.checkPaymentAdapter('gpay').then(() => {
+//            alert('GPay Available');
+//            razorpay.createPayment(paymentData, {gpay: true})
+//      }).catch(() => {
+//           alert('GPay Unavailable');
+//         //   paymentData.vpa = 'h22tswift@okhdfcbank';
+//         //   razorpay.createPayment(paymentData);
+// })
+//   e.preventDefault(); 
+
+//  });
+
+</script>
+
+</html>
+
